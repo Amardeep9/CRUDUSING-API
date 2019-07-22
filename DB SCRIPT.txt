@@ -1,0 +1,38 @@
+CREATE TABLE [dbo].[login](
+ [id] [int] IDENTITY(1,1) NOT NULL,
+ [username] [varchar](50) NULL,
+ [password] [nvarchar](50) NULL,
+ [lastlogin] [datetime] NULL
+) ON [PRIMARY]
+ 
+GO
+ 
+SET ANSI_PADDING OFF
+GO
+ 
+-- Stored Procedure
+-- Stored Procedure to fetch login table data
+Create proc [dbo].[sp_getlogin]
+AS
+select *from login
+ 
+-- Fetch Login table data on the basis of id
+Create proc [dbo].[sp_getloginbyid] @id int
+as
+select *from login where id=@id
+ 
+-- Insert Record stored procedure into login table
+ 
+Create proc [dbo].[sp_logininsert] @username VARCHAR(50), @password VARCHAR(50)
+AS
+insert into login(username,password) values(@username, @password)
+ 
+-- Update Login Table Record using stored procedure 
+Create proc [dbo].[sp_loginupdate] @id int ,  @username VARCHAR(50), @password VARCHAR(50) 
+AS
+update [login] set username=@username , password=@password where id=@id
+ 
+-- Delete Login Table Record using stored procedure 
+Create proc [dbo].[sp_deletelogin] @id INT
+AS
+delete from login where id=@id
